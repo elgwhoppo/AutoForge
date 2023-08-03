@@ -1,0 +1,9 @@
+variable "location" {}
+variable "resource_group_name" {}
+variable "vnet_name" {}
+variable "subnet_name" {}
+variable "nic_name" {}
+variable "vm_name" {}
+variable "vm_admin_username" {}
+variable "vm_admin_password" {}
+variable "public_dns_zone_name" {}
