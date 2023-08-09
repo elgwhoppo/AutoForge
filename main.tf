@@ -149,37 +149,19 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
     host = self.public_ip_address
   }
 
-/*
   // commands to install LinuxGSM and TF2 server and depednencies
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
       "sudo apt install git -y",
-      "git clone <repository_url> <destination_directory>
-cd <destination_directory>
-find . -type f -name "*.sh" -exec sudo chmod +x {} \;
-
-
-      "echo 'Running the bash script on the Azure VM.'",
-      "echo 'Your bash script commands go here.'",
-      "echo 'For example, you can install software using the package manager.'",
-      "sudo add-apt-repository multiverse -y",
-      "sudo dpkg --add-architecture i386",
-      "sudo apt-get update -y",
-      #"sudo sed -i 's/#\$nrconf{restart} = '\"'i'\"';/\$nrconf{restart} = '\"'a'\"';/g' /etc/needrestart/needrestart.conf",
-      #"sudo sed -i 's/#\\\$nrconf{restart} = \\'i\\';/\\\$nrconf{restart} = \\'a\\';/g' /etc/needrestart/needrestart.conf"
-      #"sudo apt install -qq bsdmainutils bzip2 jq lib32gcc-s1 lib32stdc++6 libcurl4-gnutls-dev:i386 libsdl2-2.0-0:i386 netcat unzip -y", #steamcmd
-      #"mkdir ~/Steam && cd ~/Steam",
-      #"curl -sqL https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxvf -",
-      #"./steamcmd.sh"
-      #"./steamcmd.sh +force_install_dir ./tf2 +login anonymous +app_update 232250 +quit"
-
+      "git clone https://github.com/elgwhoppo/AutoForge.git ~/AutoForge",
+      "cd ~/AutoForge/Gameservers",      
+      "chmod +x *",
+      "./prep_server.sh",
+      "./install_tf2.sh"
     ]
   }
-*/
-
 }
-
 
 //need to do remote provisioner without destroying the VM on apply
 //https://www.terraform.io/language/resources/provisioners/remote-exec
@@ -220,27 +202,3 @@ resource "azurerm_dns_a_record" "tf2_record" {
   ttl                 = 3600
   records             = [azurerm_public_ip.tf2_public_ip.ip_address]
 }
-
-/*
-module "vm-run-comman" {
-    source               = "innovationnorway/vm-run-command/azurerm"
-    resource_group_name  = "${azurerm_resource_group.rg.name}"
-    virtual_machine_name = "${azurerm_virtual_machine.tf2_server.name}"
-    os_type              = "linux"
-
-    script = <<EOF
-sudo add-apt-repository multiverse -y
-sudo dpkg --add-architecture i386
-sudo apt-get update -y
-sudo sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
-sudo apt install -qq bsdmainutils bzip2 jq lib32gcc-s1 lib32stdc++6 libcurl4-gnutls-dev:i386 libsdl2-2.0-0:i386 netcat unzip -y
-mkdir ~/Steam && cd ~/Steam
-curl -sqL https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxvf -
-./steamcmd.sh +force_install_dir ./tf2 +login anonymous +app_update 232250 +quit
-EOF
-}
-*/
-
-#mkdir ~/Steam && cd ~/Steam
-#wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
-#tar -xvzf steamcmd_linux.tar.gz -C /home/azureuser/Steam
