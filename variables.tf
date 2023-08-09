@@ -1,9 +1,10 @@
-variable "location" {}
-variable "resource_group_name" {}
-variable "vnet_name" {}
-variable "subnet_name" {}
-variable "nic_name" {}
-variable "vm_name" {}
-variable "vm_admin_username" {}
-variable "vm_admin_password" {}
-variable "public_dns_zone_name" {}
+variable "resource_group_location" {
+  default     = "eastus"
+  description = "Location of the resource group."
+}
+
+variable "prefix" {
+  type        = string
+  default     = "tf2-vm"
+  description = "Prefix of the resource name"
+}
