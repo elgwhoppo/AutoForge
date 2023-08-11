@@ -16,7 +16,7 @@ sudo echo ""STEAM_0:0:16152087" "99:z"" > ~/.local/share/Steam/steamcmd/tf2/tf/a
 sudo cat << EOF > ~/.local/share/Steam/steamcmd/tf2/tf/cfg/motd.txt
 Welcome to Forge Gaming's TF2 Server!
 
-Be nice and cool and all that fun stuff.
+Be nice and cool and all that fun stuff. Right now JOOOOOOOOOO is the only admin. 
 
 : )
 EOF
