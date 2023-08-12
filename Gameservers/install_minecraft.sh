@@ -10,6 +10,7 @@ MEMORY="4G"  # Amount of RAM to allocate to the server
 # Function to check for server updates
 check_update() {
     echo "Checking for Minecraft server update..."
+    cd $MINECRAFT_DIR
     wget -q -O current_version.txt https://launchermeta.mojang.com/mc/game/version_manifest.json
 
     LATEST_VERSION=$(grep -oP '(?<="release": ")[^"]*' current_version.txt)
@@ -24,7 +25,6 @@ check_update() {
     fi
 
     rm current_version.txt
-    cp $MINECRAFT_JAR $MINECRAFT_DIR
 }
 
 # Function to install Java if not present
