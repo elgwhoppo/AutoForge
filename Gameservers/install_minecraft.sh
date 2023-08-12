@@ -39,10 +39,10 @@ install_java() {
 # Function to configure server properties
 configure_server() {
     echo "Configuring server properties..."
-    echo "eula=true" > $MINECRAFT_DIR/eula.txt
-    echo "motd=Forge Gaming LAN 20 Server" > $MINECRAFT_DIR/server.properties
-    echo "gamemode=0" >> $MINECRAFT_DIR/server.properties
-    echo "hardcore=false" >> $MINECRAFT_DIR/server.properties
+    sudo echo "eula=true" > $MINECRAFT_DIR/eula.txt
+    sudo echo "motd=Forge Gaming LAN 20 Server" > $MINECRAFT_DIR/server.properties
+    sudo echo "gamemode=0" >> $MINECRAFT_DIR/server.properties
+    sudo echo "hardcore=false" >> $MINECRAFT_DIR/server.properties
 }
 
 # Function to start the Minecraft server
