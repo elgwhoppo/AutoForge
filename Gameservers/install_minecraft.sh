@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Define variables
-MINECRAFT_DIR="~/.local/share/minecraft"
+MINECRAFT_DIR="~/minecraft"
 MINECRAFT_JAR="server.jar"
-MINECRAFT_JAR_FULL="~/.local/share/minecraft.server.jar"
+MINECRAFT_JAR_FULL="~/minecraft/server.jar"
 JAVA_PATH="/usr/bin/java"  # Path to your Java executable
 MEMORY="4G"  # Amount of RAM to allocate to the server
 
@@ -18,12 +18,13 @@ check_update() {
     if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
         echo "Updating Minecraft server..."
         wget -q -O $MINECRAFT_JAR https://launcher.mojang.com/v1/objects/SHA256HASHHERE/server.jar
-        cp $MINECRAFT_JAR $MINECRAFT_DIR
+        
     else
         echo "Minecraft server is up to date."
     fi
 
     rm current_version.txt
+    cp $MINECRAFT_JAR $MINECRAFT_DIR
 }
 
 # Function to install Java if not present
