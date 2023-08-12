@@ -3,8 +3,9 @@
 # Define variables
 MINECRAFT_DIR="~/.local/share/minecraft"
 MINECRAFT_JAR="server.jar"
+MINECRAFT_JAR_FULL="~/.local/share/minecraft.server.jar"
 JAVA_PATH="/usr/bin/java"  # Path to your Java executable
-MEMORY="2G"  # Amount of RAM to allocate to the server
+MEMORY="4G"  # Amount of RAM to allocate to the server
 
 # Function to check for server updates
 check_update() {
@@ -17,6 +18,7 @@ check_update() {
     if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
         echo "Updating Minecraft server..."
         wget -q -O $MINECRAFT_JAR https://launcher.mojang.com/v1/objects/SHA256HASHHERE/server.jar
+        cp $MINECRAFT_JAR $MINECRAFT_DIR
     else
         echo "Minecraft server is up to date."
     fi
@@ -46,7 +48,7 @@ configure_server() {
 start_server() {
     echo "Starting Minecraft server..."
     cd $MINECRAFT_DIR
-    $JAVA_PATH -Xmx$MEMORY -Xms$MEMORY -jar $MINECRAFT_JAR nogui
+    $JAVA_PATH -Xmx$MEMORY -Xms$MEMORY -jar $MINECRAFT_JAR_FULL nogui
 }
 
 # Main script
