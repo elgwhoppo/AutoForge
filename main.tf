@@ -140,7 +140,8 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.tf2_nic.id]
   disable_password_authentication = false
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_DS11_v2"
+  #size                 = "Standard_DS1_v2" #this for minecraft 2GB heap size
 
   admin_ssh_key {
     username   = "azureuser"  # Change this to your desired admin username
