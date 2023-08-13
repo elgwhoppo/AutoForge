@@ -29,7 +29,7 @@ check_update() {
         echo "Downloading Minecraft server..."
     fi
 
-    wget -q -O $MINECRAFT_DIR/$MINECRAFT_JAR "https://launcher.mojang.com/v1/objects/$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | grep -A 3 "\"id\": \"$LATEST_VERSION\"" | grep -oP '(?<="url": ")[^"]*')"
+    wget -q -O ~/minecraft/server.jar "https://launcher.mojang.com/v1/objects/$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | grep -A 3 "\"id\": \"$LATEST_VERSION\"" | grep -oP '(?<="url": ")[^"]*')"
 }
 
 
