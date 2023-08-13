@@ -54,8 +54,7 @@ configure_server() {
 # Function to start the Minecraft server
 start_server() {
     echo "Starting Minecraft server..."
-    cd ~/minecraft
-    /usr/bin/java -jar ~/minecraft/server.jar nogui
+    /usr/bin/java -Xmx4G -Xms1G -jar ~/minecraft/server.jar nogui
 }
 
 # Main script
