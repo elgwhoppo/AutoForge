@@ -50,7 +50,7 @@ sv_master_legacy_mode 0
 EOF
 
 #Start PVKII Server
-screen -dm -S TF2Server bash -c "~/.local/share/Steam/steamcmd/pvkii/srcds_run -console -game pvkii -maxplayers 32 +map bt_island"
+screen -dm -S PVKIIServer bash -c "~/.local/share/Steam/steamcmd/pvkii/srcds_run -console -game pvkii -maxplayers 32 +map bt_island"
 
 #Admin Tips: 
 #Once at the console use rcon_password commmand to set it. Then use it in-game. 

@@ -5,6 +5,6 @@ variable "resource_group_location" {
 
 variable "prefix" {
   type        = string
-  default     = "tf2-vm"
+  default     = "autoforge-vm"
   description = "Prefix of the resource name"
 }

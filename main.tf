@@ -12,6 +12,12 @@ resource "azurerm_virtual_network" "lan_network" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+# Create DNS Zone
+resource "azurerm_dns_zone" "landnszone" {
+  name                = "lan.forgegaming.us"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
 # Create subnet
 resource "azurerm_subnet" "lan_subnet" {
   name                 = "${random_pet.prefix.id}-subnet"
@@ -20,9 +26,20 @@ resource "azurerm_subnet" "lan_subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+# Create storage account for boot diagnostics for all VMs
+resource "azurerm_storage_account" "my_storage_account" {
+  name                     = "diag${random_id.random_id.hex}"
+  location                 = azurerm_resource_group.rg.location
+  resource_group_name      = azurerm_resource_group.rg.name
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+# Create TF2 Server
+
 # Create tf2 server public IPs
 resource "azurerm_public_ip" "tf2_public_ip" {
-  name                = "${random_pet.prefix.id}-public-ip"
+  name                = "${random_pet.prefix.id}-public-ip-tf2"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
@@ -30,7 +47,7 @@ resource "azurerm_public_ip" "tf2_public_ip" {
 
 # Create TF2 Network Security Group and rules
 resource "azurerm_network_security_group" "tf2_nsg" {
-  name                = "${random_pet.prefix.id}-nsg"
+  name                = "${random_pet.prefix.id}-nsg-tf2"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -93,7 +110,7 @@ resource "azurerm_network_security_group" "tf2_nsg" {
 
 # Create TF2 network interface
 resource "azurerm_network_interface" "tf2_nic" {
-  name                = "${random_pet.prefix.id}-nic"
+  name                = "${random_pet.prefix.id}-nic-tf2"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -111,14 +128,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = azurerm_network_security_group.tf2_nsg.id
 }
 
-# Create storage account for boot diagnostics for all VMs
-resource "azurerm_storage_account" "my_storage_account" {
-  name                     = "diag${random_id.random_id.hex}"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
+
 
 
 # Create TF2 virtual machine
@@ -169,7 +179,7 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      #"./install_tf2.sh"
+      "./install_tf2.sh"
     ]
   }
 }
@@ -201,11 +211,6 @@ resource "random_pet" "prefix" {
   length = 1
 }
 
-resource "azurerm_dns_zone" "landnszone" {
-  name                = "lan.forgegaming.us"
-  resource_group_name = azurerm_resource_group.rg.name
-}
-
 resource "azurerm_dns_a_record" "tf2_record" {
   name                = "tf2"
   zone_name           = azurerm_dns_zone.landnszone.name
@@ -214,13 +219,11 @@ resource "azurerm_dns_a_record" "tf2_record" {
   records             = [azurerm_public_ip.tf2_public_ip.ip_address]
 }
 
-
-# what
-
+# PVKII Server
 
 # Create pvkii server public IPs
 resource "azurerm_public_ip" "pvkii_public_ip" {
-  name                = "${random_pet.prefix.id}-public-ip"
+  name                = "${random_pet.prefix.id}-public-ip-pvkii"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
@@ -228,7 +231,7 @@ resource "azurerm_public_ip" "pvkii_public_ip" {
 
 # Create pvkii Network Security Group and rules
 resource "azurerm_network_security_group" "pvkii_nsg" {
-  name                = "${random_pet.prefix.id}-nsg"
+  name                = "${random_pet.prefix.id}-nsg-pvkii"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -280,12 +283,12 @@ resource "azurerm_network_security_group" "pvkii_nsg" {
 
 # Create pvkii network interface
 resource "azurerm_network_interface" "pvkii_nic" {
-  name                = "${random_pet.prefix.id}-nic"
+  name                = "${random_pet.prefix.id}-nic-pvkii"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
-    name                          = "my_nic_configuration"
+    name                          = "pvkii_nic_configuration"
     subnet_id                     = azurerm_subnet.lan_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.pvkii_public_ip.id
@@ -293,7 +296,7 @@ resource "azurerm_network_interface" "pvkii_nic" {
 }
 
 # Connect the pvkii security group to the network interface
-resource "azurerm_network_interface_security_group_association" "example" {
+resource "azurerm_network_interface_security_group_association" "pvkii" {
   network_interface_id      = azurerm_network_interface.pvkii_nic.id
   network_security_group_id = azurerm_network_security_group.pvkii_nsg.id
 }
@@ -305,7 +308,7 @@ resource "azurerm_linux_virtual_machine" "pvkii_server" {
   admin_password        = random_password.password.result
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.tf2_nic.id]
+  network_interface_ids = [azurerm_network_interface.pvkii_nic.id]
   disable_password_authentication = false
   size                  = "Standard_DS1_v2"
 
@@ -351,33 +354,6 @@ resource "azurerm_linux_virtual_machine" "pvkii_server" {
   }
 }
 
-//need to do remote provisioner without destroying the VM on apply
-//https://www.terraform.io/language/resources/provisioners/remote-exec
-
-# Generate random text for a unique storage account name
-resource "random_id" "random_id" {
-  keepers = {
-    # Generate a new ID only when a new resource group is defined
-    resource_group = azurerm_resource_group.rg.name
-  }
-
-  byte_length = 8
-}
-
-resource "random_password" "password" {
-  length      = 20
-  min_lower   = 1
-  min_upper   = 1
-  min_numeric = 1
-  min_special = 1
-  special     = true
-}
-
-resource "random_pet" "prefix" {
-  prefix = var.prefix
-  length = 1
-}
-
 resource "azurerm_dns_a_record" "pvkii_record" {
   name                = "pvk"
   zone_name           = azurerm_dns_zone.landnszone.name
@@ -385,4 +361,3 @@ resource "azurerm_dns_a_record" "pvkii_record" {
   ttl                 = 3600
   records             = [azurerm_public_ip.pvkii_public_ip.ip_address]
 }
-
