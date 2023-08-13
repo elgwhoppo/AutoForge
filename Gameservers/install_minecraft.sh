@@ -7,24 +7,31 @@ JAVA_PATH="/usr/bin/java"  # Path to your Java executable
 MEMORY="4G"  # Amount of RAM to allocate to the server
 
 # Function to check for server updates
+# Function to check for server updates and download the latest JAR
 check_update() {
     echo "Checking for Minecraft server update..."
     cd ~/minecraft
-    wget -q -O current_version.txt https://launchermeta.mojang.com/mc/game/version_manifest.json
+    LATEST_VERSION=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | grep -oP '(?<="release": ")[^"]*')
+    echo "Latest Minecraft version: $LATEST_VERSION"
 
-    LATEST_VERSION=$(grep -oP '(?<="release": ")[^"]*' current_version.txt)
-    CURRENT_VERSION=$(grep -oP '(?<="id": ")[^"]*' ~/minecraft/version_manifest.json)
+    if [ -f "$MINECRAFT_DIR/$MINECRAFT_JAR" ]; then
+        CURRENT_VERSION=$(java -cp $MINECRAFT_DIR/$MINECRAFT_JAR net.minecraft.data.Main --version)
+        echo "Current Minecraft version: $CURRENT_VERSION"
 
-    if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
-        echo "Updating Minecraft server..."
-        wget -q -O $MINECRAFT_JAR https://launcher.mojang.com/v1/objects/SHA256HASHHERE/server.jar
-        
+        if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
+            echo "Updating Minecraft server..."
+            rm $MINECRAFT_DIR/$MINECRAFT_JAR
+        else
+            echo "Minecraft server is up to date."
+            return
+        fi
     else
-        echo "Minecraft server is up to date."
+        echo "Downloading Minecraft server..."
     fi
 
-    rm current_version.txt
+    wget -q -O $MINECRAFT_DIR/$MINECRAFT_JAR "https://launcher.mojang.com/v1/objects/$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | grep -A 3 "\"id\": \"$LATEST_VERSION\"" | grep -oP '(?<="url": ")[^"]*')"
 }
+
 
 # Function to install Java if not present
 install_java() {
