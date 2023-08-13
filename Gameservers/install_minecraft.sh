@@ -48,7 +48,7 @@ configure_server() {
 start_server() {
     echo "Starting Minecraft server..."
     cd ~/minecraft
-    $JAVA_PATH -Xmx$MEMORY -Xms$MEMORY -jar $MINECRAFT_JAR_FULL nogui
+    /usr/bin/java -jar ~/minecraft/server.jar nogui
 }
 
 # Main script
