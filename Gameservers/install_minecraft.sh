@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Define variables
-MINECRAFT_DIR="~/minecraft"
 MINECRAFT_JAR="server.jar"
 MINECRAFT_JAR_FULL="~/minecraft/server.jar"
 JAVA_PATH="/usr/bin/java"  # Path to your Java executable
@@ -10,11 +9,11 @@ MEMORY="4G"  # Amount of RAM to allocate to the server
 # Function to check for server updates
 check_update() {
     echo "Checking for Minecraft server update..."
-    cd $MINECRAFT_DIR
+    cd ~/minecraft
     wget -q -O current_version.txt https://launchermeta.mojang.com/mc/game/version_manifest.json
 
     LATEST_VERSION=$(grep -oP '(?<="release": ")[^"]*' current_version.txt)
-    CURRENT_VERSION=$(grep -oP '(?<="id": ")[^"]*' $MINECRAFT_DIR/version_manifest.json)
+    CURRENT_VERSION=$(grep -oP '(?<="id": ")[^"]*' ~/minecraft/version_manifest.json)
 
     if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
         echo "Updating Minecraft server..."
@@ -39,23 +38,24 @@ install_java() {
 # Function to configure server properties
 configure_server() {
     echo "Configuring server properties..."
-    sudo echo "eula=true" > $MINECRAFT_DIR/eula.txt
-    sudo echo "motd=Forge Gaming LAN 20 Server" > $MINECRAFT_DIR/server.properties
-    sudo echo "gamemode=0" >> $MINECRAFT_DIR/server.properties
-    sudo echo "hardcore=false" >> $MINECRAFT_DIR/server.properties
+    sudo echo "eula=true" > ~/minecraft/eula.txt
+    sudo echo "motd=Forge Gaming LAN 20 Server" > ~/minecraft/server.properties
+    sudo echo "gamemode=0" >> ~/minecraft/server.properties
+    sudo 
+    echo "hardcore=false" >> ~/minecraft/server.properties
 }
 
 # Function to start the Minecraft server
 start_server() {
     echo "Starting Minecraft server..."
-    cd $MINECRAFT_DIR
+    cd ~/minecraft
     $JAVA_PATH -Xmx$MEMORY -Xms$MEMORY -jar $MINECRAFT_JAR_FULL nogui
 }
 
 # Main script
-if [ ! -f "$MINECRAFT_DIR/$MINECRAFT_JAR" ]; then
+if [ ! -f "~/minecraft/$MINECRAFT_JAR" ]; then
     echo "Downloading Minecraft server..."
-    mkdir -p $MINECRAFT_DIR
+    mkdir -p ~/minecraft
     check_update
 else
     echo "Minecraft server found."
