@@ -40,9 +40,8 @@ configure_server() {
     echo "Configuring server properties..."
     sudo echo "eula=true" > ~/minecraft/eula.txt
     sudo echo "motd=Forge Gaming LAN 20 Server" > ~/minecraft/server.properties
-    sudo echo "gamemode=0" >> ~/minecraft/server.properties
-    sudo 
-    echo "hardcore=false" >> ~/minecraft/server.properties
+    sudo echo "gamemode=0" >> ~/minecraft/server.properties 
+    sudo echo "hardcore=false" >> ~/minecraft/server.properties
 }
 
 # Function to start the Minecraft server
