@@ -221,6 +221,14 @@ resource "azurerm_dns_a_record" "tf2_record" {
   records             = [azurerm_public_ip.tf2_public_ip.ip_address]
 }
 
+resource "azurerm_dns_a_record" "minecraft_record" {
+  name                = "minecraft"
+  zone_name           = azurerm_dns_zone.landnszone.name
+  resource_group_name = azurerm_resource_group.rg.name
+  ttl                 = 3600
+  records             = [azurerm_public_ip.tf2_public_ip.ip_address]
+}
+
 # PVKII Server
 
 # Create pvkii server public IPs
