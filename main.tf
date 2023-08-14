@@ -180,7 +180,8 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      "./install_tf2.sh"
+      "./install_tf2.sh",
+      "./install_minecraft.sh"
     ]
   }
 }

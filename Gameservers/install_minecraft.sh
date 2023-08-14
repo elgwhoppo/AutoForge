@@ -27,7 +27,8 @@ echo "enable-lan-visibility=true" >> ~/minecraft/server.properties
 #echo "" >> ~/minecraft/server.properties
 
 # Start the Minecraft server (adjust the memory settings as needed)
-sudo java -Xmx10G -Xms10G -jar minecraft_server.jar nogui
+sudo java -Xmx2G -Xms2G -jar minecraft_server.jar nogui
+#sudo java -Xmx10G -Xms10G -jar minecraft_server.jar nogui
 # This command starts the server with a maximum heap size of 10GB and an initial heap size of 1GB. You can adjust these values based on your server's available resources.
 
 # Once the server has started successfully, you can stop it by typing "stop" in the server console.
