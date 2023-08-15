@@ -41,19 +41,19 @@ fi
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"
 sudo chown -R azureuser:azureuser ~/minecraft
-sudo sh -c 'sudo echo "eula=true" > ~/minecraft/eula.txt'
-sudo sh -c 'echo "server-name=Forge LAN Minecraft" > ~/minecraft/server.properties'
-sudo sh -c 'echo "motd=Forge LAN Minecraft...for a limited time only!!" >> ~/minecraft/server.properties'
-sudo sh -c 'echo "gamemode=survival" >> ~/minecraft/server.properties'
-sudo sh -c 'echo "hardcore=false" >> ~/minecraft/server.properties'
-sudo sh -c 'echo "pvp=true" >> ~/minecraft/server.properties'
-sudo sh -c 'echo "difficulty=hard" >> ~/minecraft/server.properties' # Allowed values: "peaceful", "easy", "normal", or "hard"
-sudo sh -c 'echo "enable-lan-visibility=true" >> ~/minecraft/server.properties'
+sudo sh -c 'sudo echo "eula=true" > /home/azureuser/minecraft/eula.txt'
+sudo sh -c 'echo "server-name=Forge LAN Minecraft" > /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "motd=Forge LAN Minecraft...for a limited time only!!" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "gamemode=survival" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "hardcore=false" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "pvp=true" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "difficulty=hard" >> /home/azureuser/minecraft/server.properties' # Allowed values: "peaceful", "easy", "normal", or "hard"
+sudo sh -c 'echo "enable-lan-visibility=true" >> /home/azureuser/minecraft/server.properties'
 #sudo sh -c 'echo "" >> ~/minecraft/server.properties'
 
 # Start the Minecraft server (adjust the memory settings as needed)
 echo "Creating screen launch"
-sudo screen -dm -S Minecraft bash -c "sudo java -Xmx2G -Xms2G -jar ~/minecraft/minecraft_server.jar nogui"
+screen -dm -S Minecraft bash -c "java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui"
 #sudo java -Xmx10G -Xms10G -jar minecraft_server.jar nogui
 # This command starts the server with a maximum heap size of 10GB and an initial heap size of 1GB. You can adjust these values based on your server's available resources.
 
