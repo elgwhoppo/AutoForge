@@ -355,8 +355,8 @@ resource "azurerm_linux_virtual_machine" "pvkii_server" {
     inline = [
       "sudo apt update",
       "sudo apt install git -y",
-      "git clone https://github.com/elgwhoppo/AutoForge.git ~/AutoForge",
-      "cd ~/AutoForge/Gameservers",      
+      "git clone https://github.com/elgwhoppo/AutoForge.git /home/azureuser/AutoForge",
+      "cd /home/azureuser/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
       "./install_pvkii.sh"

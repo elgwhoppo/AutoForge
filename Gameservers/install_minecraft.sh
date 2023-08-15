@@ -6,10 +6,10 @@ sudo apt install openjdk-19-jre-headless -y
 
 # Create a directory for Minecraft
 sudo mkdir ~/minecraft
-sudo chown -R azureuser:azureuser ~/minecraft
+sudo chown -R azureuser:azureuser /home/azureuser/minecraft
 
 # Navigate to the Minecraft directory
-cd ~/minecraft
+cd /home/azureuser/minecraft
 
 # Download the Minecraft server JAR file
 sudo wget -O minecraft_server.jar https://piston-data.mojang.com/v1/objects/84194a2f286ef7c14ed7ce0090dba59902951553/server.jar
@@ -40,7 +40,6 @@ fi
 
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"
-sudo chown -R azureuser:azureuser ~/minecraft
 sudo sh -c 'sudo echo "eula=true" > /home/azureuser/minecraft/eula.txt'
 sudo sh -c 'echo "server-name=Forge LAN Minecraft" > /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "motd=Forge LAN Minecraft...for a limited time only!!" >> /home/azureuser/minecraft/server.properties'
