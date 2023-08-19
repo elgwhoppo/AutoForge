@@ -1,20 +1,15 @@
 # Update the package list
 sudo apt update
 
-# Install OpenJDK (Java Development Kit)
-sudo apt install openjdk-19-jre-headless -y
+# Install OpenJDK (Java Development Kit) and JQ (a command-line JSON processor)
+sudo apt install openjdk-19-jre-headless jq -y
 
 # Create a directory for Minecraft
-sudo mkdir ~/minecraft
+sudo mkdir /home/azureuser/minecraft
 sudo chown -R azureuser:azureuser /home/azureuser/minecraft
 
 # Navigate to the Minecraft directory
 cd /home/azureuser/minecraft
-
-# Download the Minecraft server JAR file
-sudo wget -O minecraft_server.jar https://piston-data.mojang.com/v1/objects/84194a2f286ef7c14ed7ce0090dba59902951553/server.jar
-sudo wget -O server-icon.png https://forgegaming.us/wp-content/uploads/2023/08/64x64_Site_Forge_Gaming_Hammer_Black_Color_RGB.png
-# Replace "<version>" with the actual version you want to download. You can find the actual URL here https://www.minecraft.net/en-us/download/server
 
 #Kill Minecraft if it's running
 # Define the name of the Minecraft Java server process
@@ -37,6 +32,18 @@ else
     echo "Killed Minecraft server processes."
 fi
 
+# Download the Minecraft server JAR file
+# Get the latest version of Minecraft server
+latest_version=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')
+
+# Construct the URL for the latest server JAR
+server_jar_url="https://launcher.mojang.com/v1/objects/$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r --arg version "$latest_version" '.versions[] | select(.id == $version) | .url')/server.jar"
+
+# Download the latest server JAR file
+sudo wget -O minecraft_server.jar "$server_jar_url"
+
+# Download the server icon
+sudo wget -O server-icon.png https://forgegaming.us/wp-content/uploads/2023/08/64x64_Site_Forge_Gaming_Hammer_Black_Color_RGB.png
 
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"

@@ -219,6 +219,7 @@ resource "azurerm_dns_a_record" "tf2_record" {
   resource_group_name = azurerm_resource_group.rg.name
   ttl                 = 3600
   records             = [azurerm_public_ip.tf2_public_ip.ip_address]
+  depends_on          = [azurerm_linux_virtual_machine.tf2_server]
 }
 
 resource "azurerm_dns_a_record" "minecraft_record" {
@@ -227,6 +228,7 @@ resource "azurerm_dns_a_record" "minecraft_record" {
   resource_group_name = azurerm_resource_group.rg.name
   ttl                 = 3600
   records             = [azurerm_public_ip.tf2_public_ip.ip_address]
+  depends_on          = [azurerm_linux_virtual_machine.tf2_server]
 }
 
 # PVKII Server
@@ -370,4 +372,5 @@ resource "azurerm_dns_a_record" "pvkii_record" {
   resource_group_name = azurerm_resource_group.rg.name
   ttl                 = 3600
   records             = [azurerm_public_ip.pvkii_public_ip.ip_address]
+  depends_on          = [azurerm_linux_virtual_machine.pvkii_server]
 }
