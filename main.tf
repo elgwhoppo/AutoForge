@@ -1,4 +1,28 @@
-# create resource grouplan_network
+# Generate random text for a unique storage account name
+resource "random_id" "random_id" {
+  keepers = {
+    # Generate a new ID only when a new resource group is defined
+    resource_group = azurerm_resource_group.rg.name
+  }
+
+  byte_length = 8
+}
+
+resource "random_password" "password" {
+  length      = 20
+  min_lower   = 1
+  min_upper   = 1
+  min_numeric = 1
+  min_special = 1
+  special     = true
+}
+
+resource "random_pet" "prefix" {
+  prefix = var.prefix
+  length = 1
+}
+
+# create resource group
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
   name     = "${random_pet.prefix.id}-rg"
@@ -35,6 +59,64 @@ resource "azurerm_storage_account" "my_storage_account" {
   account_replication_type = "LRS"
 }
 
+module "vm_tf2" {
+  source         = "./vm_tf2"
+  vm_name        = "autoforge-tf2"
+  vm_size        = "Standard_DS1_v2"
+  admin_username = "azureuser"
+  allocation_method = "Static"
+  prefix = var.prefix
+  subnet_id = azurerm_subnet.lan_subnet.id
+  resource_group_name = "${random_pet.prefix.id}-rg"
+  resource_group_location = var.resource_group_location
+  admin_password = random_password.password.result
+  dns_zone = azurerm_dns_zone.landnszone.name
+}
+
+module "vm_minecraft" {
+  source         = "./vm_minecraft"
+  vm_name        = "autoforge-minecraft"
+  vm_size        = "Standard_DS1_v2"
+  admin_username = "azureuser"
+  allocation_method = "Static"
+  prefix = var.prefix
+  subnet_id = azurerm_subnet.lan_subnet.id
+  resource_group_name = "${random_pet.prefix.id}-rg"
+  resource_group_location = var.resource_group_location
+  admin_password = random_password.password.result
+  dns_zone = azurerm_dns_zone.landnszone.name
+}
+
+module "vm_pvkii" {
+  source         = "./vm_pvkii"
+  vm_name        = "autoforge-pvkii"
+  vm_size        = "Standard_DS1_v2"
+  admin_username = "azureuser"
+  allocation_method = "Static"
+  prefix = var.prefix
+  subnet_id = azurerm_subnet.lan_subnet.id
+  resource_group_name = "${random_pet.prefix.id}-rg"
+  resource_group_location = var.resource_group_location
+  admin_password = random_password.password.result
+  dns_zone = azurerm_dns_zone.landnszone.name
+}
+
+module "vm_gm" {
+  source         = "./vm_gm"
+  vm_name        = "autoforge-gm"
+  vm_size        = "Standard_DS1_v2"
+  admin_username = "azureuser"
+  allocation_method = "Static"
+  prefix = var.prefix
+  subnet_id = azurerm_subnet.lan_subnet.id
+  resource_group_name = "${random_pet.prefix.id}-rg"
+  resource_group_location = var.resource_group_location
+  admin_password = random_password.password.result
+  dns_zone = azurerm_dns_zone.landnszone.name
+}
+
+# Other resources and configurations
+/*
 # Create TF2 Server
 
 # Create tf2 server public IPs
@@ -129,8 +211,6 @@ resource "azurerm_network_interface_security_group_association" "example" {
 }
 
 
-
-
 # Create TF2 virtual machine
 resource "azurerm_linux_virtual_machine" "tf2_server" {
   name                  = "tf2-vm"
@@ -188,30 +268,6 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
 
 //need to do remote provisioner without destroying the VM on apply
 //https://www.terraform.io/language/resources/provisioners/remote-exec
-
-# Generate random text for a unique storage account name
-resource "random_id" "random_id" {
-  keepers = {
-    # Generate a new ID only when a new resource group is defined
-    resource_group = azurerm_resource_group.rg.name
-  }
-
-  byte_length = 8
-}
-
-resource "random_password" "password" {
-  length      = 20
-  min_lower   = 1
-  min_upper   = 1
-  min_numeric = 1
-  min_special = 1
-  special     = true
-}
-
-resource "random_pet" "prefix" {
-  prefix = var.prefix
-  length = 1
-}
 
 resource "azurerm_dns_a_record" "tf2_record" {
   name                = "tf2"
@@ -374,3 +430,5 @@ resource "azurerm_dns_a_record" "pvkii_record" {
   records             = [azurerm_public_ip.pvkii_public_ip.ip_address]
   depends_on          = [azurerm_linux_virtual_machine.pvkii_server]
 }
+
+*/
