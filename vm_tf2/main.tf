@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "tf2_nsg" {
 
 # Create TF2 network interface
 resource "azurerm_network_interface" "tf2_nic" {
-  name                = "${var.prefix}-nic-tf2"
+  name                = "${var.vm_name}-nic-tf2"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
@@ -130,7 +130,7 @@ resource "azurerm_linux_virtual_machine" "tf2_server" {
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      "./install_tf2.sh",
+      "./tf2_setup.sh",
     ]
   }
 }

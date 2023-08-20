@@ -2,18 +2,16 @@ variable "resource_group_location" {
   default     = "eastus"
   description = "Location of the resource group."
 }
-
+/*
 variable "resource_group_name" {
-  default     = "autoforge-rg"
   description = "Location of the resource group."
 }
 
 variable "prefix" {
   type        = string
-  default     = "autoforge-vm"
   description = "Prefix of the resource name, a random pet in this code"
 }
-
+*/
 variable "admin_username" {
   description = "Admin username for the VM"
   default     = "azureuser"

@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "pvkii_nsg" {
 
 # Create pvkii network interface
 resource "azurerm_network_interface" "pvkii_nic" {
-  name                = "${var.prefix}-nic-pvkii"
+  name                = "${var.vm_name}-nic-pvkii"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
@@ -130,8 +130,7 @@ resource "azurerm_linux_virtual_machine" "pvkii_server" {
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      "./install_pvkii.sh",
-      "./install_pvkii.sh",
+      "./pvkii_setup.sh",
     ]
   }
 }

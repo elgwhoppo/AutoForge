@@ -3,7 +3,7 @@
 
 # Create gm server public IPs
 resource "azurerm_public_ip" "gm_public_ip" {
-  name                = "${var.prefix}-public-ip-${var.vm_name}"
+  name                = "${var.vm_name}-public-ip"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   allocation_method   = var.allocation_method
@@ -11,7 +11,7 @@ resource "azurerm_public_ip" "gm_public_ip" {
 
 # Create gm Network Security Group and rules
 resource "azurerm_network_security_group" "gm_nsg" {
-  name                = "${var.prefix}-nsg-gm-${var.vm_name}"
+  name                = "${var.vm_name}-nsg-gm"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "gm_nsg" {
 
 # Create gm network interface
 resource "azurerm_network_interface" "gm_nic" {
-  name                = "${var.prefix}-nic-gm"
+  name                = "${var.vm_name}-nic-gm"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
@@ -126,11 +126,11 @@ resource "azurerm_linux_virtual_machine" "gm_server" {
     inline = [
       "sudo apt update",
       "sudo apt install git -y",
-      "git clone https://github.com/elgwhoppo/AutoForge.git ~/AutoForge",
+      "git clone https://github.com/elgwhoppo/AutoForge.git /home/azureuser/AutoForge",
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      "./install_gm.sh",
+      "./gm_setup.sh",
     ]
   }
 }

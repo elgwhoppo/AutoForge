@@ -15,6 +15,17 @@ resource "azurerm_network_security_group" "minecraft_nsg" {
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
+  security_rule {
+    name                       = "ssh"
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
     security_rule {
     name                       = "minecraft"
     priority                   = 1005
@@ -30,7 +41,7 @@ resource "azurerm_network_security_group" "minecraft_nsg" {
 
 # Create minecraft network interface
 resource "azurerm_network_interface" "minecraft_nic" {
-  name                = "${var.prefix}-nic-minecraft"
+  name                = "${var.vm_name}-nic-minecraft"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
@@ -98,7 +109,7 @@ resource "azurerm_linux_virtual_machine" "minecraft_server" {
       "cd ~/AutoForge/Gameservers",      
       "chmod +x *",
       "./prep_server.sh",
-      "./install_minecraft.sh"
+      "./minecraft_setup.sh",
     ]
   }
 }

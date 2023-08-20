@@ -27,10 +27,6 @@ variable "resource_group_location" {
   description = "Name of the resource group location"
 }
 
-variable "prefix" {
-  description = "prefix"
-}
-
 variable "subnet_id" {
   description = "Subnet ID of the subnet to deploy into"
 }

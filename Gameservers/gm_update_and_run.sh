@@ -6,13 +6,7 @@ steamcmd +force_install_dir ./gm +login anonymous +app_update 4020 +quit
 
 #Install Metamod and Sourcemod into TF2 Server
 cd /home/azureuser/steam
-#sudo wget https://mms.alliedmods.net/mmsdrop/1.11/mmsource-1.11.0-git1148-linux.tar.gz
-#sudo wget https://sm.alliedmods.net/smdrop/1.11/sourcemod-1.11.0-git6936-linux.tar.gz
-#sudo tar -zxvf mmsource-1.11.0-git1148-linux.tar.gz -C /home/azureuser/.local/share/Steam/steamcmd/gm/garrysmod
-#sudo tar -zxvf sourcemod-1.11.0-git6936-linux.tar.gz -C /home/azureuser/.local/share/Steam/steamcmd/gm/garrysmod
 
-#Configure the server parameters and make JOOOOOOOOOO_ an admin. 
-#sudo echo ""STEAM_0:0:16152087" "99:z"" > /home/azureuser/.local/share/Steam/steamcmd/gm/garrysmod/addons/sourcemod/configs/admins_simple.ini
 sudo cat << EOF > /home/azureuser/.local/share/Steam/steamcmd/gm/garrysmod/cfg/motd.txt
 Welcome to Forge Gaming's Garry's Mod Server!
 
