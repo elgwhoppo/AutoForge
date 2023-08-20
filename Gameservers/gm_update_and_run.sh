@@ -46,5 +46,18 @@ sv_voiceenable 1
 sv_alltalk 0
 EOF
 
+sudo cat << EOF > /home/azureuser/.local/share/Steam/steamcmd/gm/garrysmod/cfg/mapcycle.txt
+ph_office
+ph_restaurant
+ph_western_town
+ph_school
+ph_abandoned_factory
+ph_underworld
+ph_motel
+ph_hotel
+ph_warehouse
+ph_subway
+EOF
+
 #Start GM Server
-screen -dm -S GMServer bash -c "/home/azureuser/.local/share/Steam/steamcmd/gm/srcds_run -port 27015 -console -game garrysmod +maxplayers 32"
+screen -dm -S GMServer bash -c "/home/azureuser/.local/share/Steam/steamcmd/gm/srcds_run -port 27015 -console -game garrysmod +maxplayers 32 +gamemode prop_hunt +mapcyclefile mapcycle.txt"

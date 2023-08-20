@@ -66,5 +66,8 @@ sv_voiceenable 1
 sv_alltalk 0
 EOF
 
+# Sleep for 5 seconds, not sure why the server sometimes doesn't start properly. 
+sleep 15
+
 #Start TF2 Server
 screen -dm -S TF2Server bash -c "~/.local/share/Steam/steamcmd/tf2/srcds_run -port 27015 -console -game tf +randommap +maxplayers 32"

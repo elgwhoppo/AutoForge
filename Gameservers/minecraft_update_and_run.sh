@@ -32,12 +32,14 @@ else
     echo "Killed Minecraft server processes."
 fi
 
-# Download the Minecraft server JAR file
 # Get the latest version of Minecraft server
 latest_version=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release')
 
 # Construct the URL for the latest server JAR
-server_jar_url="https://launcher.mojang.com/v1/objects/$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r --arg version "$latest_version" '.versions[] | select(.id == $version) | .url')/server.jar"
+server_jar_url=$(curl -s https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r --arg version "$latest_version" '.versions[] | select(.id == $version) | .url' | xargs -I {} curl -s {} | jq -r '.downloads.server.url')
+
+echo "Latest version: $latest_version"
+echo "Server JAR URL: $server_jar_url"
 
 # Download the latest server JAR file
 sudo wget -O minecraft_server.jar "$server_jar_url"
