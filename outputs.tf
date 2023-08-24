@@ -7,6 +7,11 @@ output "admin_password" {
   value     = random_password.password.result
 }
 
+# Output the NS records
+output "ns_records" {
+  value = data.azurerm_dns_zone.landnszone.name_servers
+}
+
 
 /*
 output "tf2_public_ip_address" {

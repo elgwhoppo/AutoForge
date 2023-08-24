@@ -31,6 +31,31 @@ resource "azurerm_dns_zone" "landnszone" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+# Data block to retrieve DNS zone information
+data "azurerm_dns_zone" "landnszone" {
+  name                = "lan.forgegaming.us"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+# Create NS records in namecheap
+resource "namecheap_domain_records" "forgegaming-us" {
+  domain = "forgegaming.us"
+  mode = "MERGE"
+  email_type = "NONE"
+
+  record {
+    for_each = toset(var.ns_servers)
+
+    hostname = "lan"
+    type = "NS"
+    address = each.key
+  }
+}
+
+resource "namecheap_domain_records" "namecheap_ns_records" {
+  for_each = toset(var.ns_servers)
+}
+
 # Create subnet
 resource "azurerm_subnet" "lan_subnet" {
   name                 = "${random_pet.prefix.id}-subnet"
