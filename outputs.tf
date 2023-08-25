@@ -7,25 +7,7 @@ output "admin_password" {
   value     = random_password.password.result
 }
 
-# Output the NS records
+# Output the NS records for this implementation in Azure, that should be pushed to namecheap
 output "ns_records" {
-  value = data.azurerm_dns_zone.landnszone.name_servers
+  value = azurerm_dns_zone.landnszone.name_servers
 }
-
-
-/*
-output "tf2_public_ip_address" {
-  value = azurerm_linux_virtual_machine.tf2_server.public_ip_address
-}
-
-
-
-output "pvkii_public_ip_address" {
-  value = azurerm_linux_virtual_machine.pvkii_server.public_ip_address
-}
-
-output "pvkii_admin_password" {
-  sensitive = true
-  value     = azurerm_linux_virtual_machine.pvkii_server.admin_password
-}
-*/

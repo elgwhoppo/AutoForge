@@ -20,3 +20,10 @@ terraform {
 provider "azurerm" {
   features {}
 }
+/*
+# Namecheap API credentials
+provider "namecheap" {
+  client_ip = ""
+  use_sandbox = false
+}
+*/

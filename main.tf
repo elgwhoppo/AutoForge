@@ -33,27 +33,49 @@ resource "azurerm_dns_zone" "landnszone" {
 
 # Data block to retrieve DNS zone information
 data "azurerm_dns_zone" "landnszone" {
+  depends_on = [azurerm_dns_zone.landnszone]
   name                = "lan.forgegaming.us"
   resource_group_name = azurerm_resource_group.rg.name
 }
+/*
+# Use the namecheap module to create NS delegate records in namecheap
+module "namecheap_resources" {
+  source = "./namecheap_dns"
+  ns_records = azurerm_dns_zone.landnszone.name_servers
+}
+*/
 
 # Create NS records in namecheap
 resource "namecheap_domain_records" "forgegaming-us" {
+  depends_on = [azurerm_dns_zone.landnszone]
   domain = "forgegaming.us"
   mode = "MERGE"
-  email_type = "NONE"
 
+  dynamic "record" {
+    for_each = data.azurerm_dns_zone.landnszone.name_servers
+
+    content {
+      hostname = "lan"
+      type     = "NS"
+      address  = record.value
+    }
+  }
+  /*
   record {
-    for_each = toset(var.ns_servers)
+    for_each = var.ns_records
 
     hostname = "lan"
     type = "NS"
     address = each.key
   }
-}
 
-resource "namecheap_domain_records" "namecheap_ns_records" {
-  for_each = toset(var.ns_servers)
+
+  record {
+    hostname = "testns"
+    type = "NS"
+    address = "ns1-34.azure-dns.com"
+  }
+  */
 }
 
 # Create subnet
