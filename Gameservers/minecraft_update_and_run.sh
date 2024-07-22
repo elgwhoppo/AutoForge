@@ -2,7 +2,7 @@
 sudo apt update
 
 # Install OpenJDK (Java Development Kit) and JQ (a command-line JSON processor)
-sudo apt install openjdk-19-jre-headless jq -y
+sudo apt install openjdk-21-jre-headless jq -y
 
 # Create a directory for Minecraft
 sudo mkdir /home/azureuser/minecraft
