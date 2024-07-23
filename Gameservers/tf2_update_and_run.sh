@@ -6,10 +6,10 @@ steamcmd +force_install_dir ./tf2 +login anonymous +app_update 232250 +quit
 
 #Install Metamod and Sourcemod into TF2 Server
 cd ~/steam
-sudo wget https://mms.alliedmods.net/mmsdrop/1.11/mmsource-1.11.0-git1148-linux.tar.gz
-sudo wget https://sm.alliedmods.net/smdrop/1.11/sourcemod-1.11.0-git6936-linux.tar.gz
-sudo tar -zxvf mmsource-1.11.0-git1148-linux.tar.gz -C ~/.local/share/Steam/steamcmd/tf2/tf
-sudo tar -zxvf sourcemod-1.11.0-git6936-linux.tar.gz -C ~/.local/share/Steam/steamcmd/tf2/tf
+sudo wget https://mms.alliedmods.net/mmsdrop/1.11/mmsource-1.11.0-git1155-linux.tar.gz
+sudo wget https://sm.alliedmods.net/smdrop/1.11/sourcemod-1.11.0-git6968-linux.tar.gz
+sudo tar -zxvf mmsource-1.11.0-git1155-linux.tar.gz -C ~/.local/share/Steam/steamcmd/tf2/tf
+sudo tar -zxvf sourcemod-1.11.0-git6968-linux.tar.gz -C ~/.local/share/Steam/steamcmd/tf2/tf
 
 #Configure the server parameters and make JOOOOOOOOOO_ an admin. 
 sudo echo ""STEAM_0:0:16152087" "99:z"" > ~/.local/share/Steam/steamcmd/tf2/tf/addons/sourcemod/configs/admins_simple.ini
