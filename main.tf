@@ -127,7 +127,7 @@ output "module_tf2_info" {
 module "vm_minecraft" {
   source         = "./vm_minecraft"
   vm_name        = "autoforge-minecraft"
-  vm_size        = "Standard_DS1_v2"
+  vm_size        = "Standard_D2s_v3"
   admin_username = "azureuser"
   allocation_method = "Static"
   subnet_id = azurerm_subnet.lan_subnet.id
