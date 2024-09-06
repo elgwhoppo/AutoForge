@@ -109,7 +109,7 @@ resource "azurerm_linux_virtual_machine" "minecraft_server" {
       "cd ~/AutoForge/Gameservers",
       "chmod +x *",
       "./prep_server.sh",
-      "./minecraft_setup.sh",
+      "./minecraft_update_and_run.sh",
     ]
   }
 }
