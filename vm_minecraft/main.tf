@@ -106,7 +106,7 @@ resource "azurerm_linux_virtual_machine" "minecraft_server" {
       "sudo apt update",
       "sudo apt install git -y",
       "git clone https://github.com/elgwhoppo/AutoForge.git ~/AutoForge",
-      "cd ~/AutoForge/Gameservers",      
+      "cd ~/AutoForge/Gameservers",
       "chmod +x *",
       "./prep_server.sh",
       "./minecraft_setup.sh",

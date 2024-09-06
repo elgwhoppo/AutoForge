@@ -55,15 +55,18 @@ sudo unzip Midtown_Manhattan
 sudo wget -O Minecraft_Star_Wars_Space_World.zip https://forgegaming.us/wp-content/uploads/2024/09/Minecraft_Star_Wars_Space_World.zip
 sudo unzip Minecraft_Star_Wars_Space_World
 sudo wget -O Hogwarts_Castle_v.1.1_by_Gabbel.zip https://forgegaming.us/wp-content/uploads/2024/09/Hogwarts_Castle_v.1.1_by_Gabbel.zip
-sudo unzip Hogwarts_Castle_v.1.1_by_Gabbel
+sudo unzip /home/azureuser/minecraft/Hogwarts_Castle_v.1.1_by_Gabbel.zip -d /home/azureuser/minecraft/Hogwarts_Castle_Unzip
+sudo chmod -R 755 /home/azureuser/minecraft/Hogwarts_Castle_Unzip
 sudo wget -O minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip https://forgegaming.us/wp-content/uploads/2024/09/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip
 sudo unzip minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings
 
 # Rename folders to remove spaces
-sudo mv 'Hogwarts Castle - v.1.1.0 - by Gabbel' Hogwarts_Castle_by_Gabbel
-sudo chmod 755 Hogwarts_Castle_by_Gabbel/
-sudo mv 'New York - Midtown Manhattan by BasVerhagen 2.9 - 1.19.4' Midtown_Manhattan_by_BasVerhagen
-sudo mv 'Star Wars Space World' Star_Wars_Space_World
+sudo mv "/home/azureuser/minecraft/Hogwarts_Castle_Unzip/Hogwarts Castle - v.1.1.0 - by Gabbel/" /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
+sudo chown -R azureuser:azureuser /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
+sudo chmod -R 755 /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
+sudo rm /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map/session.lock
+sudo mv '/home/azureuser/minecraft/New York - Midtown Manhattan by BasVerhagen 2.9 - 1.19.4' /home/azureuser/minecraft/Midtown_Manhattan_by_BasVerhagen
+sudo mv '/home/azureuser/minecraft/Star Wars Space World' /home/azureuser/minecraft/Star_Wars_Space_World
 
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"
@@ -80,27 +83,27 @@ sudo sh -c 'echo "spawn-animals=false" >> /home/azureuser/minecraft/server.prope
 #sudo sh -c 'echo "" >> ~/minecraft/server.properties'
 
 # Create other scripts to start other maps in the home directory
-sudo sh -c 'echo "screen -dm -S MinecraftWorld bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui\"" > /home/azureuser/minecraft/start_world.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftWorld bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui\"" > /home/azureuser/minecraft/start_world.sh'
 sudo chmod +x start_world.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftMinas bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Huge_Minas_Tirith_Divici\"" > /home/azureuser/minecraft/start_minas.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftMinas bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Huge_Minas_Tirith_Divici\"" > /home/azureuser/minecraft/start_minas.sh'
 sudo chmod +x start_minas.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftManhattan bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Midtown_Manhattan_by_BasVerhagen\"" > /home/azureuser/minecraft/start_manhattan.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftManhattan bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Midtown_Manhattan_by_BasVerhagen\"" > /home/azureuser/minecraft/start_manhattan.sh'
 sudo chmod +x start_manhattan.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftStarWar bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Star_Wars_Space_World\"" > /home/azureuser/minecraft/start_starwar.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftStarWar bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Star_Wars_Space_World\"" > /home/azureuser/minecraft/start_starwar.sh'
 sudo chmod +x start_starwar.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Hogwarts_Castle_by_Gabbel\"" > /home/azureuser/minecraft/start_hogwarts.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map\"" > /home/azureuser/minecraft/start_hogwarts.sh'
 sudo chmod +x start_hogwarts.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
 sudo chmod +x start_castle.sh
 
 # Start the Minecraft server (adjust the memory settings as needed)
 echo "Creating screen launch"
-screen -dm -S Minecraft bash -c "java -Xmx2G -Xms2G -jar /home/azureuser/minecraft/minecraft_server.jar nogui"
+screen -dm -S Minecraft bash -c "java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui"
 
 #sudo java -Xmx10G -Xms10G -jar minecraft_server.jar nogui
 # This command starts the server with a maximum heap size of 10GB and an initial heap size of 1GB. You can adjust these values based on your server's available resources.

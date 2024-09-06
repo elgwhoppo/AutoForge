@@ -10,4 +10,5 @@ USERNAME="azureuser"
 echo "@reboot /bin/bash $SCRIPT_PATH" | crontab -u $USERNAME -
 
 # Reboot the machine and kick the script to start the install
-sudo reboot
+#sudo reboot
+/bin/bash $SCRIPT_PATH
