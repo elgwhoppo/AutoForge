@@ -56,7 +56,6 @@ sudo wget -O Minecraft_Star_Wars_Space_World.zip https://forgegaming.us/wp-conte
 sudo unzip Minecraft_Star_Wars_Space_World
 sudo wget -O Hogwarts_Castle_v.1.1_by_Gabbel.zip https://forgegaming.us/wp-content/uploads/2024/09/Hogwarts_Castle_v.1.1_by_Gabbel.zip
 sudo unzip /home/azureuser/minecraft/Hogwarts_Castle_v.1.1_by_Gabbel.zip -d /home/azureuser/minecraft/Hogwarts_Castle_Unzip
-sudo chmod -R 755 /home/azureuser/minecraft/Hogwarts_Castle_Unzip
 sudo wget -O minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip https://forgegaming.us/wp-content/uploads/2024/09/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip
 sudo unzip minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings
 
@@ -101,7 +100,7 @@ sudo chmod +x start_starwar.sh
 sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map\"" > /home/azureuser/minecraft/start_hogwarts.sh'
 sudo chmod +x start_hogwarts.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftCreepyCastle bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
 sudo chmod +x start_castle.sh
 
 # Start the Minecraft server (adjust the memory settings as needed)
