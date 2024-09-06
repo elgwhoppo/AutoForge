@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script not currently used, why reboot if we don't need to?
+
 # Set the path to your script
 SCRIPT_PATH="/home/azureuser/AutoForge/Gameservers/minecraft_update_and_run.sh"
 

@@ -62,11 +62,13 @@ sudo unzip minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings
 
 # Rename folders to remove spaces
 sudo mv "/home/azureuser/minecraft/Hogwarts_Castle_Unzip/Hogwarts Castle - v.1.1.0 - by Gabbel/" /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
-sudo chown -R azureuser:azureuser /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
-sudo chmod -R 755 /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
 sudo rm /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map/session.lock
 sudo mv '/home/azureuser/minecraft/New York - Midtown Manhattan by BasVerhagen 2.9 - 1.19.4' /home/azureuser/minecraft/Midtown_Manhattan_by_BasVerhagen
 sudo mv '/home/azureuser/minecraft/Star Wars Space World' /home/azureuser/minecraft/Star_Wars_Space_World
+
+# Not sure why I need this, but OK
+sudo chown -R azureuser:azureuser /home/azureuser/minecraft
+sudo chmod -R 755 /home/azureuser/minecraft
 
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"
@@ -80,6 +82,7 @@ sudo sh -c 'echo "difficulty=hard" >> /home/azureuser/minecraft/server.propertie
 sudo sh -c 'echo "max-players=100" >> /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "enable-command-block=true" >> /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "spawn-animals=false" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "spawn-monsters=false" >> /home/azureuser/minecraft/server.properties'
 #sudo sh -c 'echo "" >> ~/minecraft/server.properties'
 
 # Create other scripts to start other maps in the home directory
@@ -98,7 +101,7 @@ sudo chmod +x start_starwar.sh
 sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map\"" > /home/azureuser/minecraft/start_hogwarts.sh'
 sudo chmod +x start_hogwarts.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
+sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
 sudo chmod +x start_castle.sh
 
 # Start the Minecraft server (adjust the memory settings as needed)
