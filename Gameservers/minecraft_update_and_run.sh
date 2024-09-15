@@ -57,13 +57,14 @@ sudo unzip Minecraft_Star_Wars_Space_World
 sudo wget -O Hogwarts_Castle_v.1.1_by_Gabbel.zip https://forgegaming.us/wp-content/uploads/2024/09/Hogwarts_Castle_v.1.1_by_Gabbel.zip
 sudo unzip /home/azureuser/minecraft/Hogwarts_Castle_v.1.1_by_Gabbel.zip -d /home/azureuser/minecraft/Hogwarts_Castle_Unzip
 sudo wget -O minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip https://forgegaming.us/wp-content/uploads/2024/09/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings.zip
-sudo unzip minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings
+sudo unzip minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings -d /home/azureuser/minecraft/CreepyUnzip
 
 # Rename folders to remove spaces
 sudo mv "/home/azureuser/minecraft/Hogwarts_Castle_Unzip/Hogwarts Castle - v.1.1.0 - by Gabbel/" /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map
 sudo rm /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map/session.lock
 sudo mv '/home/azureuser/minecraft/New York - Midtown Manhattan by BasVerhagen 2.9 - 1.19.4' /home/azureuser/minecraft/Midtown_Manhattan_by_BasVerhagen
 sudo mv '/home/azureuser/minecraft/Star Wars Space World' /home/azureuser/minecraft/Star_Wars_Space_World
+sudo rm /home/azureuser/minecraft/CreepyUnzip/CreepyBlackstoneCastle_By_NevasBuildings/session.lock
 
 # Not sure why I need this, but OK
 sudo chown -R azureuser:azureuser /home/azureuser/minecraft
@@ -88,20 +89,20 @@ sudo sh -c 'echo "spawn-monsters=false" >> /home/azureuser/minecraft/server.prop
 sudo sh -c 'echo "screen -dm -S MinecraftWorld bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui\"" > /home/azureuser/minecraft/start_world.sh'
 sudo chmod +x start_world.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftMinas bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Huge_Minas_Tirith_Divici\"" > /home/azureuser/minecraft/start_minas.sh'
-sudo chmod +x start_minas.sh
+sudo sh -c 'echo "screen -dm -S MinecraftCreepyCastle bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/CreepyUnzip/CreepyBlackstoneCastle_By_NevasBuildings\"" > /home/azureuser/minecraft/start1_castle.sh'
+sudo chmod +x start1_castle.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftManhattan bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Midtown_Manhattan_by_BasVerhagen\"" > /home/azureuser/minecraft/start_manhattan.sh'
-sudo chmod +x start_manhattan.sh
+sudo sh -c 'echo "screen -dm -S MinecraftStarWar bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Star_Wars_Space_World\"" > /home/azureuser/minecraft/start2_starwar.sh'
+sudo chmod +x start2_starwar.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftStarWar bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Star_Wars_Space_World\"" > /home/azureuser/minecraft/start_starwar.sh'
-sudo chmod +x start_starwar.sh
+sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map\"" > /home/azureuser/minecraft/start3_hogwarts.sh'
+sudo chmod +x start3_hogwarts.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftHogwarts bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/Hogwarts_Castle_by_Gabbel_Map\"" > /home/azureuser/minecraft/start_hogwarts.sh'
-sudo chmod +x start_hogwarts.sh
+sudo sh -c 'echo "screen -dm -S MinecraftMinas bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Huge_Minas_Tirith_Divici\"" > /home/azureuser/minecraft/start4_minas.sh'
+sudo chmod +x start4_minas.sh
 
-sudo sh -c 'echo "screen -dm -S MinecraftCreepyCastle bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world /home/azureuser/minecraft/minecraftmaps.com-CreepyBlackstoneCastle_by_NevasBuildings\"" > /home/azureuser/minecraft/start_castle.sh'
-sudo chmod +x start_castle.sh
+sudo sh -c 'echo "screen -dm -S MinecraftManhattan bash -c \"java -Xmx7G -Xms5G -jar /home/azureuser/minecraft/minecraft_server.jar nogui --world Midtown_Manhattan_by_BasVerhagen\"" > /home/azureuser/minecraft/start5_manhattan.sh'
+sudo chmod +x start5_manhattan.sh
 
 # Start the Minecraft server (adjust the memory settings as needed)
 echo "Creating screen launch"
