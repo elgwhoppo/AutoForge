@@ -45,7 +45,8 @@ echo "Server JAR URL: $server_jar_url"
 sudo wget -O minecraft_server.jar "$server_jar_url"
 
 # Download the server icon
-sudo wget -O server-icon.png https://forgegaming.us/wp-content/uploads/2023/08/64x64_Site_Forge_Gaming_Hammer_Black_Color_RGB.png
+#sudo wget -O server-icon.png https://forgegaming.us/wp-content/uploads/2023/08/64x64_Site_Forge_Gaming_Hammer_Black_Color_RGB.png
+sudo wget -O server-icon.png https://forgegaming.us/wp-content/uploads/2024/09/64x64_october.png
 
 # Download FG uploaded Map Files
 sudo wget -O Huge_Minas_Tirith_Divici.zip https://forgegaming.us/wp-content/uploads/2024/09/Huge_Minas_Tirith_Divici.zip
@@ -73,8 +74,8 @@ sudo chmod -R 755 /home/azureuser/minecraft
 # Agree to the Minecraft EULA (Edit eula.txt)
 echo "Creating config files"
 sudo sh -c 'sudo echo "eula=true" > /home/azureuser/minecraft/eula.txt'
-sudo sh -c 'echo "server-name=Forge LAN Minecraft" > /home/azureuser/minecraft/server.properties'
-sudo sh -c 'echo "motd=Forge LAN Minecraft...for a limited time only!!" >> /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "server-name=Forge LAN 21 Minecraft Server" > /home/azureuser/minecraft/server.properties'
+sudo sh -c 'echo "motd=The Hunt...for Red October!!" >> /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "gamemode=creative" >> /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "hardcore=false" >> /home/azureuser/minecraft/server.properties'
 sudo sh -c 'echo "pvp=true" >> /home/azureuser/minecraft/server.properties'
